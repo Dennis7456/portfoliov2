@@ -1,105 +1,110 @@
 import React from "react";
 import {
-  Container,
+  Box,
   Stack,
   Heading,
-  Box,
-  Text,
-  useColorModeValue,
   Flex,
-  Image,
+  Text,
   Tag,
-  VStack,
+  Image,
+  Grid,
+  Skeleton,
+  AspectRatio,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
-const companies = [
+const projects = [
   {
-    title: "Company1",
-    alt: "PS image",
-    role: "Senior Software Engineer",
-    skills: "Ruby, ROR, React, AWS",
-    period: "2019 - Present",
-    logo: "",
+    title: "Project1",
+    image_url: "/assets/images/projects/my-website.png",
+    site: "https://mahmad.me",
+    desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
+    tech: "Rails, React, Javascript",
   },
   {
-    title: "Company2",
-    alt: "BT image",
-    role: "Software Engineer",
-    skills: "Ruby, ROR, Javascript, Python",
-    period: "2018 - 2019",
-    logo: "",
+    title: "Project2",
+    image_url: "/assets/images/projects/blog.png",
+    site: "https://mahmad.me",
+    desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
+    tech: "Rails, React, Javascript",
   },
 ];
 
-const Career = () => {
+const Projects = () => {
   return (
-    <Container maxW="7xl" p={["8", "12"]}>
-      <VStack spacing={2}>
-        {companies.map((company, index) => (
-          <Card
-            key={index}
-            title={company.title}
-            role={company.role}
-            skills={company.skills}
-            period={company.period}
-            logo={company.logo}
-          />
-        ))}
-      </VStack>
-    </Container>
-  );
-};
-
-const Card = ({ title, role, skills, period, logo, alt }) => {
-  return (
-    <Box
-      paddingX={4}
-      paddingY={5}
-      shadow="md"
-      backgroundColor={useColorModeValue("gray.100", "gray.700")}
-      position="relative"
-      rounded="md"
-      width="100%"
+    <Stack
+      as="main"
+      padding="1.5rem"
+      marginLeft="auto"
+      marginRight="auto"
+      maxWidth="48rem"
+      paddingTop="3rem"
     >
-      <Flex justifyContent="space-between">
-        <Flex>
-          <Image
-            rounded="full"
-            boxSize={["50px", "70px"]}
-            fallbackSrc={"https://via.placeholder.com/150"}
-            objectFit="cover"
-            src={logo}
-            alt={alt}
+      <Stack spacing={2}>
+        {projects.map((project, index) => (
+          <Project
+            key={index}
+            title={project.title}
+            desc={project.desc}
+            tech={project.tech}
+            image_url={project.image_url}
           />
-          <Stack spacing={2} pl={3}>
-            <Heading fontSize="xl">{title}</Heading>
-            <Heading fontSize="sm">
-              {role}
-              <Text display={["block", "none", "none", "none"]} fontSize={14}>
-                {period}
-              </Text>
-            </Heading>
-          </Stack>
-        </Flex>
-        <Stack display={["none", "flex", "flex", "flex"]}>
-          <Text fontSize={14}>{period}</Text>
-        </Stack>
-      </Flex>
-      <Stack spacing={2} mt={3} isInline alignItems="center">
-        {skills.split(",").map((skill) => (
-          <Tag
-            size="sm"
-            padding="0 3px"
-            key={skill}
-            fontWeight="bold"
-            backgroundColor={useColorModeValue("gray.200", "gray.500")}
-          >
-            {skill}
-          </Tag>
         ))}
       </Stack>
-    </Box>
+    </Stack>
   );
 };
 
-export default Career;
+function Project({ title, desc, tech, image_url }) {
+  return (
+    <Stack marginBottom={5}>
+      <Heading as="h4" size="md">
+        <Flex alignItems="center">
+          <Text as="span">{title}</Text>
+        </Flex>
+      </Heading>
+      <Grid
+        gridTemplateColumns={["1fr", "1fr 1fr", "1fr 1fr", "1fr 1fr"]}
+        gap={2}
+        p={5}
+        _hover={{ shadow: "md" }}
+        position="relative"
+        rounded="md"
+        backgroundColor={useColorModeValue("gray.400", "gray.700")}
+      >
+        <Flex w="100%" h="100%" alignItems="center">
+          <AspectRatio ratio={1.85 / 1} w="100%" borderBottomWidth="1px">
+            <Image
+              rounded="md"
+              src={"https://bit.ly/2k1H1t6"}
+              fallback={<Skeleton />}
+              objectFit="cover"
+            />
+          </AspectRatio>
+        </Flex>
+        <Box w="100%">
+          <Stack mt={2} pl={[0, 4, 4, 4]}>
+            <Text fontSize="lg" fontWeight="semibold" lineHeight="short">
+              {desc}
+            </Text>
+            <Stack isInline>
+              {tech.split(",").map((tag) => (
+                <Tag
+                  size="sm"
+                  padding="0 3px"
+                  key={tag}
+                  color="#4299E1"
+                  fontWeight="bold"
+                >
+                  {tag}
+                </Tag>
+              ))}
+            </Stack>
+          </Stack>
+        </Box>
+      </Grid>
+    </Stack>
+  );
+}
+
+export default Projects;

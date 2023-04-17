@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { extendTheme } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -12,6 +12,7 @@ import About from "./pages/About/About";
 import Blog from "./pages/Blog/Blog";
 import Contact from "./pages/Contact/Contact";
 import Projects from "./pages/Projects/Projects";
+import Home from "./components/Home/Home";
 
 const colors = {
   brand: {
@@ -27,19 +28,13 @@ function App() {
   return (
     <div>
       <ChakraProvider theme={theme}>
-        <BrowserRouter>
-          <Header />
-          <IntroSection />
-          <Skills />
-          <Milestones />
-          <Footer />
-          <Routes>
-            <Route path="/about" component={About} />
-            <Route path="/blog" component={Blog} />
-            <Route path="/contact" component={Contact} />
-            <Route path="/projects" component={Projects} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/blog" element={<Blog />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/projects" element={<Projects />}></Route>
+        </Routes>
       </ChakraProvider>
     </div>
   );

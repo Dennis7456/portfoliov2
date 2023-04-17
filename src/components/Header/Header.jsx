@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -36,6 +36,11 @@ const Header = (props) => {
   const handleToggle = () => setShow(!show);
   const { colorMode, toggleColorMode } = useColorMode();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const navigateToHome = () => {
+    navigate("/");
+  };
 
   return (
     <div>
@@ -68,11 +73,14 @@ const Header = (props) => {
               display="flex"
               justifyContent="center"
               alignItems="center"
+              _hover={{ bgGradient: "linear(to-r, #ff6247, #ff6247)" }}
             >
               <Avatar
                 name="Dennis Ngetich Kiplangat"
                 size="xl"
                 src={profileImg}
+                onClick={() => navigateToHome()}
+                style={{ cursor: "pointer" }}
               />
             </Box>
           </Heading>
@@ -109,6 +117,9 @@ const Header = (props) => {
           flexGrow={1}
         >
           {navLinks.map((link, index) => {
+            console.log("Location", location.pathname);
+            console.log("Link", link.url);
+            console.log("index", index);
             return (
               <Link
                 as={RouterLink}
@@ -125,11 +136,8 @@ const Header = (props) => {
                   background: "#ff6247",
                   color: "#fff",
                 }}
-                // className={
-                //   location.pathname === link.url ? "active" : undefined
-                // }
-                className={"active"}
-                //onClick={() => setShow(false)}
+                onClick={() => setShow(false)}
+                className={location.pathname === link.url ? "active" : null}
               >
                 {link.name}
               </Link>
