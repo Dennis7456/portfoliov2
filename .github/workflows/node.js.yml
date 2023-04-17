@@ -1,0 +1,28 @@
+name: Ikea CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Required to retrieve git history
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16 # Update this to Node.js version 16
+          cache: 'npm'
+      - run: yarn install
+      - run: yarn prettier
+      - run: yarn lint:fix
+      - name: Build
+        run: yarn build # Update with your build command
