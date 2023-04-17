@@ -12,6 +12,7 @@ import {
   AspectRatio,
   useColorModeValue,
 } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 import Header from "../../components/Header/Header";
 import PaginationContainer from "../../components/Pagination/Pagination";
 
@@ -20,14 +21,14 @@ const projects = [
     title: "Project1",
     image_url: "/assets/images/projects/my-website.png",
     site: "https://mahmad.me",
-    desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
     tech: "Rails, React, Javascript",
   },
   {
     title: "Project2",
     image_url: "/assets/images/projects/blog.png",
     site: "https://mahmad.me",
-    desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
     tech: "Rails, React, Javascript",
   },
 ];
@@ -114,5 +115,14 @@ function Project({ title, desc, tech, image_url }) {
     </div>
   );
 }
+
+// PropTypes for Project component
+Project.propTypes = {
+  title: PropTypes.string.isRequired,
+  image_url: PropTypes.string.isRequired,
+  site: PropTypes.string.isRequired,
+  desc: PropTypes.string,
+  tech: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default Projects;

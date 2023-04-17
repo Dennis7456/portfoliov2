@@ -1,6 +1,6 @@
 module.exports = {
   "*.{js,jsx}": (filenames) => [
-    "yarn prettier",
-    "yarn lint:fix",
+    "npm run prettier",
+    "npm run lint:fix",
   ],
 };
